@@ -17,7 +17,7 @@
 #include <Wire.h>
 
 
-// // // Set SSID and Password for the Network here. 
+// // // Set SSID and Password for the Network here.
 char* ssid = "Spectre x360";
 char* password = "zxcvbnml";
 
@@ -28,7 +28,7 @@ Ticker timer;
 // MPU6050 Slave Device Address
 const uint8_t MPU6050SlaveAddress = 0x68;
 
-// Select SDA and SCL pins for I2C communication 
+// Select SDA and SCL pins for I2C communication
 const uint8_t scl = D6;
 const uint8_t sda = D7;
 
@@ -37,7 +37,7 @@ const uint8_t rightLED = D3;
 const uint8_t upLED = D1;
 const uint8_t downLED = D0;
 
-// sensitivity scale factor respective to full scale setting provided in datasheet 
+// sensitivity scale factor respective to full scale setting provided in datasheet
 const uint16_t AccelScaleFactor = 16384;
 const uint16_t GyroScaleFactor = 131;
 
@@ -58,7 +58,7 @@ int16_t AccelX, AccelY, AccelZ, Temperature, GyroX, GyroY, GyroZ;
 
 
 void setup() {
- 
+
   // Start Serial port
   Serial.begin(115200);
 
@@ -97,7 +97,7 @@ void getData() {
   double Ax, Ay, Az, T, Gx, Gy, Gz;
   // Read values from sensor
   Read_RawValue(MPU6050SlaveAddress, MPU6050_REGISTER_ACCEL_XOUT_H);
-  
+
   //divide each with their sensitivity scale factor
   Ax = (double)AccelX/AccelScaleFactor;
   Ay = (double)AccelY/AccelScaleFactor;
@@ -125,8 +125,8 @@ void getData() {
   json += Gz;
   json += "}";
   webSocket.broadcastTXT(json.c_str(), json.length());
-  
-  webSocket.sendTXT(c_numb, json); // Sending data to the web-socket connection through python
+
+  // webSocket.sendTXT(c_numb, json); // Sending data to the web-socket connection through python
 
 }
 
@@ -160,7 +160,7 @@ void onWebSocketEvent(uint8_t num,
       sampleRate = (float) atof((const char *) &payload[0]);
       timer.detach();
       timer.attach(sampleRate, getData);
-      
+
       //webSocket.sendTXT(num, payload);
       break;
     }
@@ -172,7 +172,7 @@ void onWebSocketEvent(uint8_t num,
 
 
 void loop() {
- 
+
   // Look for and handle WebSocket data
   webSocket.loop();
 
