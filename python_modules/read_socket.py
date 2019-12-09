@@ -14,9 +14,8 @@ def plot_data(ax, data):
 	"""
 	data_ - as passed by read_socket()
 	"""
-    last = 5
-	if data is dict():
-		return
+	last = 20
+
 	for x in range(len(ax)):
 		for y in range(len(ax[0])):
 			ax[x][y].clear()

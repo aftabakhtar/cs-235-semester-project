@@ -3,9 +3,10 @@ This python script will run the whole project and handle all the processes
 """
 
 # imports
-from python_modules import read_socket, plot_curves
+from python_modules import read_socket
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
+import websocket
 
 fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(8,4))
 fig.canvas.set_window_title('Plots')
