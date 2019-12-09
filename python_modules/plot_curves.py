@@ -35,7 +35,7 @@ import matplotlib.pyplot as plt
 data_ = {"Ax":[], "Ay":[], "Az":[], "Gx":[], "Gy":[], "Gz":[]}
 
 
-def plot_data(ax1, data):
+def plot_data(ax, data):
 	"""
 	data_ - as passed by read_socket()
 	"""
@@ -51,13 +51,13 @@ def plot_data(ax1, data):
 
 	if len(data_['Ax']) > 1:
 		x = [j for j in range(len(data_['Ax']))]
-		ax1[0][0].plot(x, data_['Ax'])
-		ax1[0][1].plot(x, data_['Ay'])
-		ax1[0][2].plot(x, data_['Az'])
+		ax[0][0].plot(x, data_['Ax'])
+		ax[0][1].plot(x, data_['Ay'])
+		ax[0][2].plot(x, data_['Az'])
 
-		ax1[1][0].plot(x, data_['Gx'])
-		ax1[1][1].plot(x, data_['Gy'])
-		ax1[1][2].plot(x, data_['Gz'])
+		ax[1][0].plot(x, data_['Gx'])
+		ax[1][1].plot(x, data_['Gy'])
+		ax[1][2].plot(x, data_['Gz'])
 
 # i = 0
 
