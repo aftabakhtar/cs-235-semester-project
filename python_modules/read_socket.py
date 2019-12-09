@@ -7,9 +7,6 @@ import websocket
 import time
 import json
 
-ws = websocket.WebSocket()
-ws_ip = 'ws://' + "192.168.137.225"
-ws.connect(ws_ip)
 
 data_ = {"Ax":[], "Ay":[], "Az":[], "Gx":[], "Gy":[], "Gz":[]}
 
@@ -17,6 +14,7 @@ def plot_data(ax, data):
 	"""
 	data_ - as passed by read_socket()
 	"""
+    last = 5
 	if data is dict():
 		return
 	for x in range(len(ax)):
@@ -29,15 +27,15 @@ def plot_data(ax, data):
 
 	if len(data_['Ax']) > 1:
 		x = [j for j in range(len(data_['Ax']))]
-		ax[0][0].plot(x, data_['Ax'])
-		ax[0][1].plot(x, data_['Ay'])
-		ax[0][2].plot(x, data_['Az'])
+		ax[0][0].plot(x[-last:], data_['Ax'][-last:])
+		ax[0][1].plot(x[-last:], data_['Ay'][-last:])
+		ax[0][2].plot(x[-last:], data_['Az'][-last:])
 
-		ax[1][0].plot(x, data_['Gx'])
-		ax[1][1].plot(x, data_['Gy'])
-		ax[1][2].plot(x, data_['Gz'])
+		ax[1][0].plot(x[-last:], data_['Gx'][-last:])
+		ax[1][1].plot(x[-last:], data_['Gy'][-last:])
+		ax[1][2].plot(x[-last:], data_['Gz'][-last:])
 
-def read_data(_, ip, delay, ax):
+def read_data(_, ws, ax):
     """
     ip - as returned by esp8266 in serial monitor
     delay - in seconds

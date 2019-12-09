@@ -19,5 +19,9 @@ ax[1][1].legend(['Gy'])
 ax[1][2].legend(['Gz'])
 
 # read_socket.read_data(ip="192.168.137.195", delay=0.01)
-ani = animation.FuncAnimation(fig, read_socket.read_data, interval=100, fargs=("192.168.137.225", 0.01, ax))
+ws = websocket.WebSocket()
+ws_ip = 'ws://' + "192.168.137.225"
+ws.connect(ws_ip)
+
+ani = animation.FuncAnimation(fig, read_socket.read_data, interval=100, fargs=(ws, ax))
 plt.show()
