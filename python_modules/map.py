@@ -1,6 +1,8 @@
 """
 This module will handle tasks related to the creation and processing of
-google maps object creation
+google maps object creation.
+
+Still underconstruction.
 """
 
 #imports
