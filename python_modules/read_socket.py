@@ -14,7 +14,7 @@ def plot_data(ax, data):
 	"""
 	data_ - as passed by read_socket()
 	"""
-	last = 20
+	last = 50
 
 	for x in range(len(ax)):
 		for y in range(len(ax[0])):
@@ -35,20 +35,21 @@ def plot_data(ax, data):
 		ax[1][2].plot(x[-last:], data_['Gz'][-last:])
 
 def read_data(_, ws, ax):
-    """
-    ip - as returned by esp8266 in serial monitor
-    delay - in seconds
-    """
+	"""
+	ip - as returned by esp8266 in serial monitor
+	delay - in seconds
+	"""
 
 
-    # reading data periodically
-    # while True:
-    data = ws.recv()
-    data = json.loads(data)
-    # print(data)
-    # here you may add operations on data
-    plot_data(ax, data)
-    # time.sleep(delay)
+	# reading data periodically
+	# while True:
+	data = ws.recv()
+	print(data)
+	data = json.loads(data)
+	# print(data)
+	# here you may add operations on data
+	#plot_data(ax, data)
+	# time.sleep(delay)
 
-    # closing connection gracefully
-    # ws.close()
+	# closing connection gracefully
+	# ws.close()

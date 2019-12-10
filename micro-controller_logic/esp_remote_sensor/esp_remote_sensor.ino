@@ -7,8 +7,6 @@
   This file contains the code to read Accelerometer and Gyroscope reading from MPU-6050 sensor module over IIC
   and creates a web socket to send data over wifi
 */
-
-
 #include <WiFiClientSecure.h>
 #include <WebSocketsServer.h>
 #include <Ticker.h>
@@ -22,7 +20,7 @@ char* ssid = "Spectre x360";
 char* password = "zxcvbnml";
 
 WebSocketsServer webSocket = WebSocketsServer(80);
-float sampleRate = 1;
+float sampleRate = 0.05;
 Ticker timer;
 
 // MPU6050 Slave Device Address
@@ -62,6 +60,9 @@ void setup() {
   // Start Serial port
   Serial.begin(115200);
 
+  Serial.print("Total Flash size: ");
+  Serial.println(ESP.getFlashChipSize());
+
   srand(time(NULL));
 
   Wire.begin(sda, scl);
@@ -84,7 +85,7 @@ void setup() {
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
 
-  timer.attach(sampleRate, getData);
+  // timer.attach(sampleRate, getData);
 
 }
 
@@ -124,9 +125,12 @@ void getData() {
   json += ", \"Gz\":";
   json += Gz;
   json += "}";
-  webSocket.broadcastTXT(json.c_str(), json.length());
 
-  // webSocket.sendTXT(c_numb, json); // Sending data to the web-socket connection through python
+  // Changes:
+  Serial.println(json);
+//  webSocket.broadcastTXT(json.c_str(), json.length());
+//  delay(50);
+  webSocket.sendTXT(c_numb, json); // Sending data to the web-socket connection through python
 
 }
 
@@ -156,12 +160,13 @@ void onWebSocketEvent(uint8_t num,
   // Echo text message back to client
   case WStype_TEXT:
     {
+      getData();
       c_numb = num;
-      sampleRate = (float) atof((const char *) &payload[0]);
-      timer.detach();
-      timer.attach(sampleRate, getData);
+//      sampleRate = (float) atof((const char *) &payload[0]);
+//      timer.detach();
+//      timer.attach(sampleRate, getData);
 
-      //webSocket.sendTXT(num, payload);
+      webSocket.sendTXT(num, payload);
       break;
     }
   // For everything else: do nothing
