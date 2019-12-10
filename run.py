@@ -20,19 +20,30 @@ ax[1][0].legend(['Gx'])
 ax[1][1].legend(['Gy'])
 ax[1][2].legend(['Gz'])
 
-# read_socket.read_data(ip="192.168.137.195", delay=0.01)
+ax[0][0].set_ylim(-1.5, 1.5)
+ax[0][1].set_ylim(-1.5, 1.5)
+ax[0][2].set_ylim(-1.5, 1.5)
+
+ln = ax[0][0].plot([],[])
+# 	ax[0][1].plot([],[]),
+# 	ax[0][2].plot([],[]),
+# 	ax[1][0].plot([],[]),
+# 	ax[1][1].plot([],[]),
+# 	ax[1][2].plot([],[])
+# ]
+
 ws = websocket.WebSocket()
-ws_ip = 'ws://' + "192.168.137.80"
+ws_ip = 'ws://' + "192.168.137.112"
 ws.connect(ws_ip)
 
-while True:
-	ws.send("Send Data")
+# while True:
 
-	print(ws.recv())
-	time.sleep(0.001)
-
-ws.close()
+# 	dictionary = read_socket.read_data(ws, 1)
+# 	print(dictionary)
 
 
-# ani = animation.FuncAnimation(fig, read_socket.read_data, interval=5, fargs=(ws, ax))
-# plt.show()
+ani = animation.FuncAnimation(fig, read_socket.animate, interval=5,
+							 fargs=(ws, ln))
+plt.show()
+
+# ws.close()
