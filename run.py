@@ -42,8 +42,10 @@ ws.connect(ws_ip)
 # 	print(dictionary)
 
 
-ani = animation.FuncAnimation(fig, read_socket.animate, interval=5,
-							 fargs=(ws, ln))
+# ani = animation.FuncAnimation(fig, read_socket.animate, interval=5, fargs=(ws, ln))
+
+ani = animation.FuncAnimation(fig, read_socket.read_data2, interval=10, fargs=(ws, ax))
+
 plt.show()
 
 # ws.close()
