@@ -1,2 +1,4 @@
 # Specify filepatterns you want git to ignore.
 experiments.py
+experiments1.py
+*.txt

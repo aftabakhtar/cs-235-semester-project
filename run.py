@@ -9,46 +9,13 @@ import matplotlib.pyplot as plt
 import websocket
 import time
 
-# fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(8,4))
-fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(8,4))
+plt.rcParams.update({'legend.fontsize':7})
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(8,4))
 fig.canvas.set_window_title('Plots')
-# fig = plt.figure()
-# ax1 = fig.add_subplot()
-# ax2 = fig.add_subplot()
-# ax[0][0].legend(['Ax'])
-# ax[0][1].legend(['Ay'])
-# ax[0][2].legend(['Az'])
-
-# ax[1][0].legend(['Gx'])
-# ax[1][1].legend(['Gy'])
-# ax[1][2].legend(['Gz'])
-
-# ax[0][0].set_ylim(-1.5, 1.5)
-# ax[0][1].set_ylim(-1.5, 1.5)
-# ax[0][2].set_ylim(-1.5, 1.5)
-
-# ln, = ax[0][0].plot([],[])
-# 	ax[0][1].plot([],[]),
-# 	ax[0][2].plot([],[]),
-# 	ax[1][0].plot([],[]),
-# 	ax[1][1].plot([],[]),
-# 	ax[1][2].plot([],[])
-# ]
 
 ws = websocket.WebSocket()
 ws_ip = 'ws://' + "192.168.137.81"
 ws.connect(ws_ip)
 
-# while True:
-
-# 	dictionary = read_socket.read_data(ws, 1)
-# 	print(dictionary)
-
-
-# ani = animation.FuncAnimation(fig, read_socket.animate, interval=5, fargs=(ws, ln))
-
-ani = animation.FuncAnimation(fig, read_socket.read_data2, interval=10, fargs=(ws, ax))
-
+ani = FuncAnimation(fig, read_data2, interval=10, fargs=(1, ax, True))
 plt.show()
-
-# ws.close()
