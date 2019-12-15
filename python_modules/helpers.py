@@ -39,9 +39,9 @@ def plot_data(ax, x, data_, gradient_, butterworth_smoothing=False):
 		ax[0][0].legend(['x', 'y', 'z'])
 		ax[0][0].set_title('Accelerometer', fontdict={'fontsize':12})
 
-		ax[0][1].plot(x[-last:], d['Gx'])
-		ax[0][1].plot(x[-last:], d['Gy'])
-		ax[0][1].plot(x[-last:], d['Gz'])
+		ax[0][1].plot(x[-last:], d['Gx'][-last:])
+		ax[0][1].plot(x[-last:], d['Gy'][-last:])
+		ax[0][1].plot(x[-last:], d['Gz'][-last:])
 		ax[0][1].legend(['x', 'y', 'z'])
 		ax[0][1].set_title('Gyroscope', fontdict={'fontsize':12})
 
@@ -49,7 +49,7 @@ def plot_data(ax, x, data_, gradient_, butterworth_smoothing=False):
 		ax[1][0].plot(x[-last:], g['Ay'][-last:])
 		ax[1][0].plot(x[-last:], g['Az'][-last:])
 		# ax[1][1].set_title('Gyroscope Gradients', fontdict={'fontsize':8})
-		
+
 		ax[1][1].plot(x[-last:], g['Gx'][-last:])
 		ax[1][1].plot(x[-last:], g['Gy'][-last:])
 		ax[1][1].plot(x[-last:], g['Gz'][-last:])

@@ -7,7 +7,7 @@ import websocket
 import time
 import json
 import numpy as np
-import helpers
+import python_modules.helpers as helpers
 
 data_ = {"Ax":[], "Ay":[], "Az":[], "Gx":[], "Gy":[], "Gz":[]}
 gradient_ = {"Ax":[], "Ay":[], "Az":[], "Gx":[], "Gy":[], "Gz":[]}
@@ -23,7 +23,7 @@ def read_data(ws):
 	data = json.loads(data)
 	return data
 
-def read_data2(i, ws, ax):
+def read_data2(i, ws, ax, butterworth_smoothing=False):
 	x.append(i)
 	for ax_ in ax:
 		for a in ax_:
@@ -37,4 +37,4 @@ def read_data2(i, ws, ax):
 		else:
 			gradient_[key].append(0)
 
-	helpers.plot_data(ax, x, data_, gradient_)
+	helpers.plot_data(ax, x, data_, gradient_, butterworth_smoothing=butterworth_smoothing)
