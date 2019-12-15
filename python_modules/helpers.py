@@ -34,9 +34,9 @@ def plot_data(ax, x, data_, gradient_, butterworth_smoothing=False):
 			d = data_
 
 		for x_ in x[-last:]:
-			if (d['Gx'] > 15 and d['Gz'] < -15 and
-				g['Ax'] < -0.0075 and g['Gx'] > 0.75
-				and g['Gy'] < -0.25 and g['Gz'] < -0.25):
+			if (d['Gx'][x_] > 15 and d['Gz'][x_] < -15 and
+				g['Ax'][x_] < -0.0075 and g['Gx'][x_] > 0.75
+				and g['Gy'][x_] < -0.25 and g['Gz'][x_] < -0.25):
 				print("Bump detected at x =", x_)
 
 		ax[0][0].plot(x[-last:], d['Ax'][-last:])
