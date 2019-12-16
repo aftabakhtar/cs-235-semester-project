@@ -36,7 +36,7 @@ def plot_data(ax, x, data_, gradient_, butterworth_smoothing=False):
 
 		# for x_ in x[-last:]:
 		if(len(d['Gx']) > 20):
-			if (d['Gx'][-5] < -10
+			if (d['Gz'][-5] > 10
 			# and
 			# 	g['Ax'][-20] < -0.005 and g['Gx'][-20] > 0.5
 			# 	and g['Gz'][-20] < -0.15
