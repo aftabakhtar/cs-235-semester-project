@@ -9,7 +9,6 @@
 */
 #include <WiFiClientSecure.h>
 #include <WebSocketsServer.h>
-#include <Ticker.h>
 #include <stdlib.h>
 #include <time.h>
 #include <Wire.h>
@@ -20,8 +19,6 @@ char* ssid = "Spectre x360";
 char* password = "zxcvbnml";
 
 WebSocketsServer webSocket = WebSocketsServer(80);
-float sampleRate = 0.05;
-Ticker timer;
 
 // MPU6050 Slave Device Address
 const uint8_t MPU6050SlaveAddress = 0x68;
@@ -29,11 +26,6 @@ const uint8_t MPU6050SlaveAddress = 0x68;
 // Select SDA and SCL pins for I2C communication
 const uint8_t scl = D6;
 const uint8_t sda = D7;
-
-const uint8_t leftLED = D2;
-const uint8_t rightLED = D3;
-const uint8_t upLED = D1;
-const uint8_t downLED = D0;
 
 // sensitivity scale factor respective to full scale setting provided in datasheet
 const uint16_t AccelScaleFactor = 16384;
@@ -60,9 +52,6 @@ void setup() {
   // Start Serial port
   Serial.begin(115200);
 
-  Serial.print("Total Flash size: ");
-  Serial.println(ESP.getFlashChipSize());
-
   srand(time(NULL));
 
   Wire.begin(sda, scl);
@@ -84,8 +73,6 @@ void setup() {
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
-
-  // timer.attach(sampleRate, getData);
 
 }
 
@@ -116,8 +103,6 @@ void getData() {
   json += Ay;
   json += ", \"Az\":";
   json += Az;
-  json += ", \"T\":";
-  json += T;
   json += ", \"Gx\":";
   json += Gx;
   json += ", \"Gy\":";
@@ -128,8 +113,6 @@ void getData() {
 
   // Changes:
   Serial.println(json);
-//  webSocket.broadcastTXT(json.c_str(), json.length());
-//  delay(50);
   webSocket.sendTXT(c_numb, json); // Sending data to the web-socket connection through python
 
 }
@@ -162,11 +145,6 @@ void onWebSocketEvent(uint8_t num,
     {
       getData();
       c_numb = num;
-//      sampleRate = (float) atof((const char *) &payload[0]);
-//      timer.detach();
-//      timer.attach(sampleRate, getData);
-
-      webSocket.sendTXT(num, payload);
       break;
     }
   // For everything else: do nothing
