@@ -1,4 +1,5 @@
 from scipy.signal import butter, lfilter, freqz
+from datetime import datetime
 
 
 def butter_lowpass(cutoff, fs, order=6):
@@ -35,12 +36,12 @@ def plot_data(ax, x, data_, gradient_, butterworth_smoothing=False):
 
 		# for x_ in x[-last:]:
 		if(len(d['Gx']) > 20):
-			if (d['Gx'][-20] < -5
+			if (d['Gx'][-5] < -10
 			# and
 			# 	g['Ax'][-20] < -0.005 and g['Gx'][-20] > 0.5
 			# 	and g['Gz'][-20] < -0.15
 			):
-				print("Bump detected!!")
+				print(datetime.now(), "Bump detected!!")
 
 		ax[0][0].plot(x[-last:], d['Ax'][-last:])
 		ax[0][0].plot(x[-last:], d['Ay'][-last:])
